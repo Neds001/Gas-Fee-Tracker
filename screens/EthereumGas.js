@@ -29,6 +29,7 @@ const GasTracker = () => {
         if (response.ok) {
           const gasData = await response.json();
           setBnbGasData(gasData.result);
+          console.log(gasData.result);
         } else {
           console.log('Error fetching BNB gas data:', response.status);
         }
@@ -48,6 +49,7 @@ const GasTracker = () => {
         if (response.ok) {
           const gasData = await response.json();
           setEthGasData(gasData.result);
+          console.log(gasData);
         } else {
           console.log('Error fetching Ethereum gas data:', response.status);
         }
