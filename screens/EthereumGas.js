@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+import { Ionicons} from "@expo/vector-icons"
 
 const GasTracker = () => {
   const [bnbGasData, setBnbGasData] = useState(null);
@@ -29,7 +30,6 @@ const GasTracker = () => {
         if (response.ok) {
           const gasData = await response.json();
           setBnbGasData(gasData.result);
-          console.log(gasData.result);
         } else {
           console.log('Error fetching BNB gas data:', response.status);
         }
@@ -49,7 +49,6 @@ const GasTracker = () => {
         if (response.ok) {
           const gasData = await response.json();
           setEthGasData(gasData.result);
-          console.log(gasData);
         } else {
           console.log('Error fetching Ethereum gas data:', response.status);
         }
@@ -105,9 +104,6 @@ const GasTracker = () => {
                   <Text style={styles.fee}>Fast Gas Price: {bnbGasData.FastGasPrice} Wei</Text>
                 </View>
               )}
-              <TouchableOpacity style={styles.button} onPress={onPressBnb}>
-                <Text style={styles.buttonText}>Go to Ethereum Gas Tracker</Text>
-              </TouchableOpacity>
             </View>
             <View style={styles.gasTracker}>
               <Text style={styles.gasTrackerTitle}>Ethereum Gas Tracker</Text>
@@ -119,13 +115,25 @@ const GasTracker = () => {
                   <Text style={styles.fee}>Fast Gas Price: {ethGasData.FastGasPrice} Gwei</Text>
                 </View>
               )}
-              <TouchableOpacity style={styles.button} onPress={onPressEth}>
-                <Text style={styles.buttonText}>Go to BNB Gas Tracker</Text>
-              </TouchableOpacity>
+     
             </View>
           </View>
         </View>
       )}
+       <View style={styles.footbar}>
+        <TouchableOpacity style={styles.iconContainer} onPress={''}>
+        <Ionicons name="notifications" size={21} color="#111827" />
+          <Text style={styles.iconLabel}>Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={''}>
+          <Ionicons name="home-sharp" size={21} color="#111827" />
+          <Text style={styles.iconLabel}>Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={onPressEth}>
+          <Ionicons name="settings-sharp" size={21} color="#111827" />
+          <Text style={styles.iconLabel}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -174,9 +182,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  footbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: 60,
+    padding: 20,
+    marginBottom: 10,
+    borderRadius: 20
+  },
   buttonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  iconContainer: {
+    alignItems: 'center',
   },
 });
 
