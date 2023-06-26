@@ -6,7 +6,7 @@ const App = () => {
 
   const fetchData = async () => {
     const network = 'eth';
-    const key = '3bb7a9ba8177423187079793b24b6748';
+    const key = '308872abd38b408db600300cae5b953c';
     const res = await fetch(`https://api.owlracle.info/v4/${network}/gas?apikey=${key}`);
     const data = await res.json();
     setGasData(data);
@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // Empty dependency array to trigger the effect only once
 
   const reloadGasData = () => {
     fetchData();
