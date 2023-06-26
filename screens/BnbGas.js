@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/core';
 function BnbGas() {
     const navigation = useNavigation();
     const onPress = () => {
-        navigation.navigate('EthereumGas');
+        navigation.navigate('Dashboard');
       };
     return (
         <View>

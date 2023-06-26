@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'rea
 import { useNavigation } from '@react-navigation/core';
 import { Ionicons} from "@expo/vector-icons"
 
-const GasTracker = () => {
+  const Dashboard = () => {
   const [bnbGasData, setBnbGasData] = useState(null);
   const [ethGasData, setEthGasData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -99,9 +99,9 @@ const GasTracker = () => {
               {bnbGasData && (
                 <View>
                   <Text style={styles.fee}>Last Block: {bnbGasData.LastBlock}</Text>
-                  <Text style={styles.fee}>Safe Gas Price: {bnbGasData.SafeGasPrice} Wei</Text>
-                  <Text style={styles.fee}>Propose Gas Price: {bnbGasData.ProposeGasPrice} Wei</Text>
-                  <Text style={styles.fee}>Fast Gas Price: {bnbGasData.FastGasPrice} Wei</Text>
+                  <Text style={styles.fee}>Low Gas Price: {bnbGasData.SafeGasPrice} Wei</Text>
+                  <Text style={styles.fee}>Average Gas Price: {bnbGasData.ProposeGasPrice} Wei</Text>
+                  <Text style={styles.fee}>Priority Gas Price: {bnbGasData.FastGasPrice} Wei</Text>
                 </View>
               )}
             </View>
@@ -110,94 +110,95 @@ const GasTracker = () => {
               {ethGasData && (
                 <View>
                   <Text style={styles.fee}>Last Block: {ethGasData.LastBlock}</Text>
-                  <Text style={styles.fee}>Safe Gas Price: {ethGasData.SafeGasPrice} Gwei</Text>
-                  <Text style={styles.fee}>Propose Gas Price: {ethGasData.ProposeGasPrice} Gwei</Text>
-                  <Text style={styles.fee}>Fast Gas Price: {ethGasData.FastGasPrice} Gwei</Text>
+                  <Text style={styles.fee}>Low Gas Price: {ethGasData.SafeGasPrice} Gwei</Text>
+                  <Text style={styles.fee}>Average Gas Price: {ethGasData.ProposeGasPrice} Gwei</Text>
+                  <Text style={styles.fee}>Priority Gas Price: {ethGasData.FastGasPrice} Gwei</Text>
                 </View>
               )}
-     
             </View>
           </View>
         </View>
       )}
-       <View style={styles.footbar}>
+
+      <View style={styles.footer}>
         <TouchableOpacity style={styles.iconContainer} onPress={''}>
-        <Ionicons name="notifications" size={21} color="#111827" />
-          <Text style={styles.iconLabel}>Notifications</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={''}>
-          <Ionicons name="home-sharp" size={21} color="#111827" />
-          <Text style={styles.iconLabel}>Dashboard</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={onPressEth}>
-          <Ionicons name="settings-sharp" size={21} color="#111827" />
-          <Text style={styles.iconLabel}>Settings</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+          <Ionicons name="notifications" size={21} color="#111827" />
+<Text style={styles.iconLabel}>Notifications</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.iconContainer} onPress={''}>
+<Ionicons name="home-sharp" size={21} color="#111827" />
+<Text style={styles.iconLabel}>Dashboard</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.iconContainer} onPress={onPressEth}>
+<Ionicons name="settings-sharp" size={21} color="#111827" />
+<Text style={styles.iconLabel}>Settings</Text>
+</TouchableOpacity>
+</View>
+</View>
+);
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  time: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  gasTrackerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  gasTracker: {
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#ccc',
-    flex: 1,
-    marginRight: 10,
-  },
-  gasTrackerTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  fee: {
-    fontSize: 14,
-    marginBottom: 5,
-  },
-  button: {
-    marginTop: 10,
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-  },
-  footbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    height: 60,
-    padding: 20,
-    marginBottom: 10,
-    borderRadius: 20
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-  iconContainer: {
-    alignItems: 'center',
-  },
+container: {
+flex: 1,
+justifyContent: 'center',
+alignItems: 'center',
+},
+heading: {
+fontSize: 24,
+fontWeight: 'bold',
+marginBottom: 10,
+},
+time: {
+fontSize: 16,
+marginBottom: 10,
+},
+gasTrackerContainer: {
+flexDirection: 'row',
+justifyContent: 'space-between',
+alignItems: 'center',
+marginTop: 20,
+},
+gasTracker: {
+padding: 10,
+borderWidth: 1,
+borderRadius: 10,
+borderColor: '#ccc',
+flex: 1,
+marginRight: 10,
+},
+gasTrackerTitle: {
+fontSize: 18,
+fontWeight: 'bold',
+marginBottom: 10,
+},
+fee: {
+fontSize: 14,
+marginBottom: 5,
+},
+footer: {
+flexDirection: 'row',
+justifyContent: 'space-evenly',
+alignItems: 'center',
+position: 'absolute',
+bottom: 0,
+width: '100%',
+height: 60,
+backgroundColor: '#f0f0f0',
+padding: 20,
+},
+buttonText: {
+color: 'white',
+textAlign: 'center',
+},
+iconContainer: {
+alignItems: 'center',
+},
+iconLabel: {
+fontSize: 12,
+marginTop: 4,
+color: '#111827',
+},
 });
 
-export default GasTracker;
+export default Dashboard;
