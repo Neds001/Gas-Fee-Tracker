@@ -1,68 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { ethers } from 'ethers';
+import { View, FlatList, Text } from 'react-native';
 
-const App = () => {
-  const [gasFees, setGasFees] = useState([]);
-  const [loading, setLoading] = useState(true);
+function App() {
+  const [gas, setGas] = useState([]);
+
+  const loadData = async () => {
+    const network = 'eth';
+    const key = '3bb7a9ba8177423187079793b24b6748';
+    const res = await fetch(`https://api.owlracle.info/v4/${network}/gas?apikey=${key}`);
+    const data = await res.json();
+    setGas(data);
+  };
 
   useEffect(() => {
-    const fetchGasFees = async () => {
-      try {
-        const provider = new ethers.providers.JsonRpcProvider('https://ethgasstation.info/json/ethgasAPI.json');
-        const gasPrice = await provider.getGasPrice();
-        const gasFeesInGwei = ethers.utils.formatUnits(gasPrice, 'gwei');
-        const gasFeesInEther = ethers.utils.formatEther(gasPrice);
-
-        const gasFeesData = [
-          { label: 'Gas Price (Gwei)', value: gasFeesInGwei },
-          { label: 'Gas Price (Ether)', value: gasFeesInEther }
-        ];
-
-        setGasFees(gasFeesData);
-        setLoading(false);
-      } catch (error) {
-        console.log('Error fetching gas fees:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchGasFees();
+    loadData();
   }, []);
 
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <View>
-          <Text style={styles.heading}>Ethereum Gas Fees:</Text>
-          {gasFees.map((fee, index) => (
-            <Text key={index} style={styles.fee}>
-              {fee.label}: {fee.value}
-            </Text>
-          ))}
-        </View>
-      )}
+    <View>
+      <FlatList
+        data={gas}
+        renderItem={(item)=> {
+          console.log(item);
+          return <Text>gas</Text>
+        }}
+      />
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  fee: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-});
+}
 
 export default App;
