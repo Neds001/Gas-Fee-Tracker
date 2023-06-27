@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import { Ionicons} from "@expo/vector-icons"
+import { Ionicons } from '@expo/vector-icons';
 
-  const Dashboard = () => {
+const Dashboard = () => {
   const [bnbGasData, setBnbGasData] = useState(null);
   const [ethGasData, setEthGasData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,12 +12,17 @@ import { Ionicons} from "@expo/vector-icons"
   const ethAPI_KEY = 'HNYFG59NRZTGXZN6A6A4VZ2A4AWX1C44W3';
 
   const navigation = useNavigation();
-  const onPressBnb = () => {
-    navigation.navigate('EthereumGas');
+
+  const onPressNotifications = () => {
+    navigation.navigate('Notifications');
   };
 
-  const onPressEth = () => {
-    navigation.navigate('BnbGas');
+  const onPressSettings = () => {
+    navigation.navigate('Settings');
+  };
+
+  const onPressDashboard = () => {
+    navigation.navigate('Dashboard');
   };
 
   useEffect(() => {
@@ -33,9 +38,9 @@ import { Ionicons} from "@expo/vector-icons"
         } else {
           console.log('Error fetching BNB gas data:', response.status);
         }
-        setLoading(false);
       } catch (error) {
         console.log('Error fetching BNB gas data:', error);
+      } finally {
         setLoading(false);
       }
     };
@@ -57,13 +62,13 @@ import { Ionicons} from "@expo/vector-icons"
       }
     };
 
-    fetchBnbGasData();
-    fetchEthGasData();
-
     const intervalId = setInterval(() => {
       fetchBnbGasData();
       fetchEthGasData();
     }, 10000);
+
+    fetchBnbGasData();
+    fetchEthGasData();
 
     return () => {
       clearInterval(intervalId);
@@ -121,84 +126,84 @@ import { Ionicons} from "@expo/vector-icons"
       )}
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.iconContainer} onPress={''}>
+        <TouchableOpacity style={styles.iconContainer} onPress={onPressNotifications}>
           <Ionicons name="notifications" size={21} color="#111827" />
-<Text style={styles.iconLabel}>Notifications</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.iconContainer} onPress={''}>
-<Ionicons name="home-sharp" size={21} color="#111827" />
-<Text style={styles.iconLabel}>Dashboard</Text>
-</TouchableOpacity>
-<TouchableOpacity style={styles.iconContainer} onPress={onPressEth}>
-<Ionicons name="settings-sharp" size={21} color="#111827" />
-<Text style={styles.iconLabel}>Settings</Text>
-</TouchableOpacity>
-</View>
-</View>
-);
+          <Text style={styles.iconLabel}>Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={onPressDashboard}>
+          <Ionicons name="home-sharp" size={21} color="#111827" />
+          <Text style={styles.iconLabel}>Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer} onPress={onPressSettings}>
+          <Ionicons name="settings-sharp" size={21} color="#111827" />
+          <Text style={styles.iconLabel}>Settings</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-container: {
-flex: 1,
-justifyContent: 'center',
-alignItems: 'center',
-},
-heading: {
-fontSize: 24,
-fontWeight: 'bold',
-marginBottom: 10,
-},
-time: {
-fontSize: 16,
-marginBottom: 10,
-},
-gasTrackerContainer: {
-flexDirection: 'row',
-justifyContent: 'space-between',
-alignItems: 'center',
-marginTop: 20,
-},
-gasTracker: {
-padding: 10,
-borderWidth: 1,
-borderRadius: 10,
-borderColor: '#ccc',
-flex: 1,
-marginRight: 10,
-},
-gasTrackerTitle: {
-fontSize: 18,
-fontWeight: 'bold',
-marginBottom: 10,
-},
-fee: {
-fontSize: 14,
-marginBottom: 5,
-},
-footer: {
-flexDirection: 'row',
-justifyContent: 'space-evenly',
-alignItems: 'center',
-position: 'absolute',
-bottom: 0,
-width: '100%',
-height: 60,
-backgroundColor: '#f0f0f0',
-padding: 20,
-},
-buttonText: {
-color: 'white',
-textAlign: 'center',
-},
-iconContainer: {
-alignItems: 'center',
-},
-iconLabel: {
-fontSize: 12,
-marginTop: 4,
-color: '#111827',
-},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  time: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  gasTrackerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  gasTracker: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#ccc',
+    flex: 1,
+    marginRight: 10,
+  },
+  gasTrackerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  fee: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 60,
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  iconContainer: {
+    alignItems: 'center',
+  },
+  iconLabel: {
+    fontSize: 12,
+    marginTop: 4,
+    color: '#111827',
+  },
 });
 
 export default Dashboard;
